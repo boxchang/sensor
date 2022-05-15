@@ -83,10 +83,10 @@ function e(i){return (document.getElementById(i));} //簡化程式碼
 function init(){
     setpath();//設ip路徑與圖檔路徑
     e('s').click()//啟動立即執行	
-    CharJs();//Char & MySql
+    //CharJs();//Char & MySql
+	webservice_data();
 
 } 	
-
 
 // 網址, 圖片路徑 
 function setpath(){
@@ -166,8 +166,44 @@ function display() {
 
 }    
 
+var labels;
+var values;
+function webservice_data(){
+	$.post("http://boxchang.synology.me:8888/sen_data/sample",
+	  {
+		type:"sen1"
+	  },
+	  function(data, status){
+		data = eval('(' + data + ')');
+		labels = data["LABELS"];
+		values = data["VALUES"];
+		CharJs2();
+	  });
+}
 
 //Char
+function CharJs2() //測試中，預計加入讀MySql資料庫套圖表
+{
+	alert(labels);
+   var xValues = labels;
+   new Chart("myChart", {
+     type: "line",
+     data: {
+       labels: xValues,
+       datasets: [{
+         data: values,
+         borderColor: "red",
+         fill: false
+       }]
+     },
+     options: {
+       legend: {display: false}
+     }
+   });
+  
+   //reChart = setTimeout('CharJs()', 10000);  //10秒重新整理
+	
+	}
 
 function CharJs() //測試中，預計加入讀MySql資料庫套圖表
 {
