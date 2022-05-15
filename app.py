@@ -1,11 +1,12 @@
-from flask import Flask
+# -*- coding: utf-8 -*
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return render_template('UKSmedia_v2.html')
 
 
 if __name__ == '__main__':

@@ -1,0 +1,465 @@
+<html>
+<head>
+<title>溫控多媒體檔</title>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=big5">
+
+ <!--Jquery 若不想拖拉功能, 這邊可全刪-->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script type="text/javascript" src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="jquery-ui.js"></script>
+ <!--*********************End Jquery*********************-->
+ <!-- Chart.js v2.4.0 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+ <!--改框框風格 drag:時間, box:溫度, box2:系統資訊, dragbasic: 畫框大小-->
+<style type="text/css">
+.drag {
+    width: 150px;
+    height: 60px;   
+    border: 2px solid black;
+    cursor: pointer;
+    border-radius: 10px;
+    float: left;
+    margin-left: 5px;
+    text-align: center;
+    font-size: 60px;
+}
+
+.box {
+    width: 250px;
+    height: 100px;
+    border: 2px solid black;
+    cursor: pointer;
+    border-radius: 10px;
+    float: left;
+    margin-left: 5px;
+    text-align: center;
+    font-size: 100px;
+}
+ 
+.box2 {
+    width: 250px;
+    height: 285px;
+    border: 2px solid black;
+    cursor: pointer;
+    border-radius: 10px;
+    float: left;
+    margin-left: 5px;    
+    font-size: 30px;
+    color:red;
+    background-repeat: no-repeat;
+    background-size: contain;     
+
+}
+  
+
+#dragbasic {
+    width: 1920px;
+    height: 1080px;
+    border: 2px solid gray;
+    background-color: #E0F0FF;    
+    background-repeat: no-repeat;
+    background-size: contain; 
+}
+
+</style>   
+
+
+<script>
+// *******************變數*******************
+	  var jsonFile= null;
+    var time = null,temp = null ,temp2 = null,temp3 = null, 
+    temp4 = null, temp5 = null, temp6 = null, set1 = null,set2 = null ,set3 = null,set4 = null,
+    set5 = null,set6 = null,set7 = null; 
+    var reJson,reChart,sT;	    
+    var stat=0,tchk=0;	
+// *******************End變數*******************  
+function e(i){return (document.getElementById(i));} //簡化程式碼  
+  
+// 開啟時執行
+function init(){
+    setpath();//設ip路徑與圖檔路徑
+    e('s').click()//啟動立即執行	
+    CharJs();//Char & MySql
+
+} 	
+
+
+// 網址, 圖片路徑 
+function setpath(){
+    jsonFile= e("ip1").value + "/datapost.json"; //wifi控制箱ip位址
+    e("dragbasic").style.backgroundImage = "url('"+ e("ip2").value +"')";	//圖檔位址    
+} 	
+
+
+//讀JSON
+function rejson(){
+	
+	 $(function () {            
+    $.ajax({
+        url: jsonFile,   //存取Json的網址             
+        type: "POST",
+        cache:false,
+        dataType: 'json',
+        data:{id:"111", user:"frank"},
+        //contentType: "application/json",
+        success: function (data) {
+           time = data.time; 
+           temp = data.sen1;  
+           temp2 = data.sen2; 
+           temp3 = data.sen3;  
+           temp4 = data.sen4; 
+           temp5 = data.sen5;  
+           temp6 = data.sen6; 
+           set1 = data.set1;                      
+           set2 = data.set2; 
+           set3 = data.set3;  
+           set4 = data.set4; 
+           set5 = data.set5;  
+           set6 = data.set6; 
+           set7 = data.set7;                      
+           display();
+           e('tt1').innerHTML = '運行中..' + '<br>'; 
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+          //display("連線異常");
+          e('tt1').innerHTML = '<font color =red>無法開啟檔案與連線...</font>' + '<br>';            
+          e('drag1').innerHTML = "";
+          e('drag2').innerHTML = "";
+          e('drag3').innerHTML = "";
+          e('drag4').innerHTML = "";
+          e('drag5').innerHTML = "";
+        }
+    });
+
+   });   
+
+   reJson = setTimeout('rejson()', 1000);  //每秒重新整理
+
+}     
+             
+// 顯示數據
+function display() {    
+              
+    if(set1 ==1)
+     set1 = "ON";
+    else 
+     set1 = "OFF";    	
+    if(set4 ==1)
+     set4 = "ON";
+    else 
+     set4 = "OFF";    	     
+    if(set5 ==1)
+     set5 = "ON";
+    else 
+     set5 = "OFF";    	          
+    e('drag6').innerHTML = "系統資訊:<br>" + "1.設定1:" + set1+ "<br>" + "2.設定2:" +set4+ "<br>" + "3.設定3:" +set2 + "分"+ "<br>" + "4.設定4:" + set3+"分" +  "<br>" + "5.設定5:" + set5+ "<br>" +"6.設定6:" +set6 +"度" + "<br>7.設定7:" + set7 +"度";   
+    e('drag1').innerHTML = time;     
+    tempcol(temp,"drag2");    
+    tempcol(temp2,"drag3");        
+    tempcol(temp3,"drag4");    
+    tempcol(set2,"drag5");
+  
+
+}    
+
+
+//Char
+
+function CharJs() //測試中，預計加入讀MySql資料庫套圖表
+{
+	
+   var xValues = [100,200,300,400,500,600,700,800,900,1000];
+   var x = set2 * 100;
+   new Chart("myChart", {
+     type: "line",
+     data: {
+       labels: xValues,
+       datasets: [{
+         data: [860,1140,1060,1060,1070,1110,1330,2210,7830,x],
+         borderColor: "red",
+         fill: false
+       },{
+         data: [1600,1700,1700,1900,2000,2700,4000,5000,6000,7000],
+         borderColor: "green",
+         fill: false
+       },{
+         data: [300,700,2000,5000,6000,4000,2000,1000,200,100],
+         borderColor: "blue",
+         fill: false
+       }]
+     },
+     options: {
+       legend: {display: false}
+     }
+   });
+  
+   reChart = setTimeout('CharJs()', 10000);  //10秒重新整理
+	
+	}
+
+//溫度變色function 藍色:溫度 < 35 橘色:溫度 >= 35 紅色:溫度 > 60
+function tempcol(temp,drag){
+	  if (drag == "drag2" || drag == "drag3")
+    {
+      if (temp > 34 && temp < 60) 
+      {  
+   	    e(drag).style.backgroundColor ='orange';
+        e(drag).innerHTML = temp + "&nbsp<span style = 'font-size:50px;'>°c</span>";   	    	    
+      }
+      else if(temp > 59)
+   	  {
+   	    e(drag).style.backgroundColor ="#F45E2C";	       
+        e(drag).innerHTML = temp + "&nbsp<span style = 'font-size:50px;'>°c</span>";   	    	       	    
+      }    
+      else
+   	  {
+   	    e(drag).style.backgroundColor ="#2ab0ed";	
+        e(drag).innerHTML = temp + "&nbsp<span style = 'font-size:50px;'>°c</span>";   	    	       	    
+      }	
+      
+      if(temp == 99)
+   	  {
+   	    e(drag).style.backgroundColor ="#F45E2C";	   
+        e(drag).innerHTML = "L O";                   
+      }    	
+    	
+    }	  
+	  else
+	  {
+   	  var cont = temp + "&nbsp<span style = 'font-size:50px;'>°c</span>";	
+      if (temp > 34 && temp < 60) 
+      {  
+   	    e(drag).className ="diabox";	    
+        e(drag).innerHTML = "<span class='arrint'></span><span class='arrout'></span>" + cont;                  
+      }
+      else if(temp > 59)
+   	  {
+   	    e(drag).className ="diabox1";	
+        e(drag).innerHTML = "<span class='arrint1'></span><span class='arrout1'></span>" + cont;                    
+      }    
+      else
+   	  {
+   	    e(drag).className ="diabox0";	
+        e(drag).innerHTML = "<span class='arrint0'></span><span class='arrout0'></span>" + cont;                  
+      }	
+      
+      if(temp == 99)
+   	  {
+   	    e(drag).className ="diabox1";	
+        e(drag).innerHTML = "<span class='arrint'></span><span class='arrout'></span>" + "L O";                   
+      }    	
+    }
+	}
+	
+ 
+//div拖拉function
+$(function () {
+
+  $("#dragbasic div[id^='drag']").draggable({
+          containment: "#dragbasic",
+          stack: ".drag"
+  });
+
+  $("div[id^='drag']").mousedown(function () {
+          $("div[id^='drag']").each(function () {
+                  var seq = $(this).attr("id").replace("drag", "");
+                  $(this).css('z-index', seq);
+          });
+  });
+});                
+//開始鈕
+function sclick() {
+  setpath();
+	e("s").disabled=true;
+  e("o").disabled=false;	
+	e("ip1").disabled=true;
+	e("ip2").disabled=true;	
+
+	stat = 1;
+  e('tt0').innerHTML = '' + '<br>';          
+  e('tt1').innerHTML = '運行中..' + '<br>'; 
+  rejson();
+	}     
+//停止鈕	                   
+function oclick() {
+	e("o").disabled=true;
+	e("s").disabled=false;
+	e("ip1").disabled=false;
+	e("ip2").disabled=false;	
+  stat = 0;	
+  e('tt0').innerHTML = '' + '<br>';          
+  e('tt1').innerHTML = '<font color =red>已停止</font>' + '<br>';      
+  e('drag1').innerHTML = '';     
+  e('drag2').innerHTML = '';
+  e('drag3').innerHTML = '';  
+  e('drag4').innerHTML = '';
+  e('drag5').innerHTML = '';    
+	clearTimeout(tT);
+	}   		                           
+	                     
+</script>
+
+<!-- 改對話框風格, diabox0→藍,diabox→橘,diabox1→紅 -->
+<style type="text/css">
+.diabox .arrint{
+	width:0px;
+	height:0px;
+	border-width:15px;
+	border-style:solid;
+	border-color:#333 transparent transparent transparent ;
+	position:absolute;
+	bottom:-30px;
+	right:50px;
+}
+
+
+.diabox .arrout{
+	width:0px;
+	height:0px;
+	border-width:15px;
+	border-style:solid;
+	border-color:orange transparent transparent transparent ;
+	position:absolute;
+	bottom:-29px;
+	right:50px;  
+}
+
+.diabox{
+  border-radius: 10px;		
+  font-size: 100px;	
+	width:250px;
+	height:90px;
+	text-align:center;
+	background:#fff;
+	position:relative;
+	border: solid 2px #333;
+	margin:30px;
+	padding:30px;
+  background-color:orange;
+  display:inline-block;
+  opacity: 0.8;  	
+}
+
+.diabox0{
+  border-radius: 10px;		
+  font-size: 100px;	
+	width:250px;
+	height:90px;
+	text-align:center;
+	background:#fff;
+	position:relative;
+	border: solid 2px #333;
+	margin:30px;
+	padding:30px;
+  background-color:#2ab0ed;
+  display:inline-block;
+  opacity: 0.8;  	
+}
+.diabox0 .arrout0{
+	width:0px;
+	height:0px;
+	border-width:15px;
+	border-style:solid;
+	border-color:#2ab0ed transparent transparent transparent ;
+	position:absolute;
+	bottom:-29px;
+	right:50px;  
+}
+.diabox0 .arrint0{
+	width:0px;
+	height:0px;
+	border-width:15px;
+	border-style:solid;
+	border-color:#333 transparent transparent transparent ;
+	position:absolute;
+	bottom:-30px;
+	right:50px;
+}
+
+
+.diabox1{
+  border-radius: 10px;		
+  font-size: 100px;	
+	width:250px;
+	height:90px;
+	text-align:center;
+	background:#fff;
+	position:relative;
+	border: solid 2px #333;
+	margin:30px;
+	padding:30px;
+  background-color:#F45E2C;
+  display:inline-block;
+  opacity: 0.8;  	
+}
+.diabox1 .arrout1{
+	width:0px;
+	height:0px;
+	border-width:15px;
+	border-style:solid;
+	border-color:#F45E2C transparent transparent transparent ;
+	position:absolute;
+	bottom:-29px;
+	right:50px;  
+}
+.diabox1 .arrint1{
+	width:0px;
+	height:0px;
+	border-width:15px;
+	border-style:solid;
+	border-color:#333 transparent transparent transparent ;
+	position:absolute;
+	bottom:-30px;
+	right:50px;
+}
+
+</style>
+</head>
+
+<body bgcolor='#FFECAA' onload="init();">
+<table border=5 style="border-collapse:collapse;border-style:outset;">	
+<tr><td bgcolor="blue" align="center">	
+<font color = "white">溫控多媒體檔</font>
+</tr></td>
+<tr><td>
+1.網路位址: 
+<input type="text" style="width:400px;" id="ip1" value="http://125.229.85.125"><!--改預設ip路位址-->
+<br>
+2.圖檔位址: 
+<input type="text" style="width:400px;" id="ip2" value="https://farm6.staticflickr.com/5780/21048893849_e7d88f738d_b1.jpg"><!--改預設圖檔位址-->
+</tr></td>
+<tr><td>	
+<input type="button" id="s" value="開始" onclick="sclick();">	
+&nbsp&nbsp&nbsp<input type="button" id="o" value="停止" onclick="oclick();" disabled=true>	
+</tr></td>
+<tr><td>	
+<div id="tt0" style="visibility:hidden"></div>	
+<div id="tt1"></div>
+</tr></td></table>
+<input type="hidden" id="v1" value=0>
+<input type="hidden" id="w1" value=0>
+<input type="hidden" id="w2" value=1>
+
+<div id="dragbasic">    
+        <div id="drag6" class="box2" style="background-color:orange;left:0px;top:0px;">系統資訊</div>                      	
+        <div id="drag1" class="drag" style="background-color:orange;position:relative;left:0px;top:0px;">時間</div> <!--left:0px;top:0px;可改起始位置--> 
+        <div id="drag2" class="box" style="border-color:#FFFFFF;background-color:orange;left:0px;top:0px;">溫度1</div>        
+        <div id="drag3" class="box" style="border-color:#FF0000;background-color:orange;left:0px;top:0px;">溫度2</div>
+        <div id="drag4" class="diabox" style="border-color:0011FF;position:relative;left:0px;top:0px;">溫度3 
+      	<span class="arrint"></span><span class="arrout"></span> 		
+        </div>                
+        <div id="drag5" class="diabox" style="border-color:#FF00F6;position:relative;left:0px;top:0px;">溫度4 
+      	<span class="arrint"></span><span class="arrout"></span> 		
+        </div>         
+        <div id="drag7" class="box2" style="background-color:orange;left:0px;top:0px;width:500px;hight:100px;">
+        <canvas id="myChart" style="width:100%;max-width:700px"></canvas>	
+        </div>               
+
+</div>   
+
+</body>
+</html>
