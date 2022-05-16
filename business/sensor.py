@@ -9,7 +9,9 @@ class Sensor(object):
         value_results = []
         label_results = []
         db = database()
-        sql = """select data_time,sen1 from demo ORDER BY data_date,data_time DESC LIMIT 10"""
+        sql = """SELECT data_time,sen1 FROM (
+                    select data_time,sen1 from demo ORDER BY data_date,data_time DESC LIMIT 10
+                  ) A ORDER BY data_time"""
         print(sql)
         cursor = db.execute_select_sql(sql)
         for row in cursor.fetchall():
