@@ -1,9 +1,9 @@
 <html>
 <head>
-<title>·Å±±¦h´CÅéÀÉ</title>
+<title>æº«æ§å¤šåª’é«”æª”</title>
 <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=big5">
 
- <!--Jquery ­Y¤£·Q©ì©Ô¥\¯à, ³oÃä¥i¥ş§R-->
+ <!--Jquery è‹¥ä¸æƒ³æ‹–æ‹‰åŠŸèƒ½, é€™é‚Šå¯å…¨åˆª-->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
@@ -14,7 +14,7 @@
  <!-- Chart.js v2.4.0 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
- <!--§ï®Ø®Ø­·®æ drag:®É¶¡, box:·Å«×, box2:¨t²Î¸ê°T, dragbasic: µe®Ø¤j¤p-->
+ <!--æ”¹æ¡†æ¡†é¢¨æ ¼ drag:æ™‚é–“, box:æº«åº¦, box2:ç³»çµ±è³‡è¨Š, dragbasic: ç•«æ¡†å¤§å°-->
 <style type="text/css">
 .drag {
     width: 150px;
@@ -69,38 +69,38 @@
 
 
 <script>
-// *******************ÅÜ¼Æ*******************
+// *******************è®Šæ•¸*******************
 	  var jsonFile= null;
     var time = null,temp = null ,temp2 = null,temp3 = null, 
     temp4 = null, temp5 = null, temp6 = null, set1 = null,set2 = null ,set3 = null,set4 = null,
     set5 = null,set6 = null,set7 = null; 
     var reJson,reChart,sT;	    
     var stat=0,tchk=0;	
-// *******************EndÅÜ¼Æ*******************  
-function e(i){return (document.getElementById(i));} //Â²¤Æµ{¦¡½X  
+// *******************Endè®Šæ•¸*******************  
+function e(i){return (document.getElementById(i));} //ç°¡åŒ–ç¨‹å¼ç¢¼  
   
-// ¶}±Ò®É°õ¦æ
+// é–‹å•Ÿæ™‚åŸ·è¡Œ
 function init(){
-    setpath();//³]ip¸ô®|»P¹ÏÀÉ¸ô®|
-    e('s').click()//±Ò°Ê¥ß§Y°õ¦æ	
+    setpath();//è¨­ipè·¯å¾‘èˆ‡åœ–æª”è·¯å¾‘
+    e('s').click()//å•Ÿå‹•ç«‹å³åŸ·è¡Œ	
     //CharJs();//Char & MySql
 	webservice_data();
 
 } 	
 
-// ºô§}, ¹Ï¤ù¸ô®| 
+// ç¶²å€, åœ–ç‰‡è·¯å¾‘ 
 function setpath(){
-    jsonFile= e("ip1").value + "/datapost.json"; //wifi±±¨î½cip¦ì§}
-    e("dragbasic").style.backgroundImage = "url('"+ e("ip2").value +"')";	//¹ÏÀÉ¦ì§}    
+    jsonFile= e("ip1").value + "/datapost.json"; //wifiæ§åˆ¶ç®±ipä½å€
+    e("dragbasic").style.backgroundImage = "url('"+ e("ip2").value +"')";	//åœ–æª”ä½å€    
 } 	
 
 
-//ÅªJSON
+//è®€JSON
 function rejson(){
 	
 	 $(function () {            
     $.ajax({
-        url: jsonFile,   //¦s¨úJsonªººô§}             
+        url: jsonFile,   //å­˜å–Jsonçš„ç¶²å€             
         type: "POST",
         cache:false,
         dataType: 'json',
@@ -122,11 +122,11 @@ function rejson(){
            set6 = data.set6; 
            set7 = data.set7;                      
            display();
-           e('tt1').innerHTML = '¹B¦æ¤¤..' + '<br>'; 
+           e('tt1').innerHTML = 'é‹è¡Œä¸­..' + '<br>'; 
         },
         error: function (xhr, ajaxOptions, thrownError) {
-          //display("³s½u²§±`");
-          e('tt1').innerHTML = '<font color =red>µLªk¶}±ÒÀÉ®×»P³s½u...</font>' + '<br>';            
+          //display("é€£ç·šç•°å¸¸");
+          e('tt1').innerHTML = '<font color =red>ç„¡æ³•é–‹å•Ÿæª”æ¡ˆèˆ‡é€£ç·š...</font>' + '<br>';            
           e('drag1').innerHTML = "";
           e('drag2').innerHTML = "";
           e('drag3').innerHTML = "";
@@ -137,11 +137,11 @@ function rejson(){
 
    });   
 
-   reJson = setTimeout('rejson()', 1000);  //¨C¬í­«·s¾ã²z
+   reJson = setTimeout('rejson()', 1000);  //æ¯ç§’é‡æ–°æ•´ç†
 
 }     
              
-// Åã¥Ü¼Æ¾Ú
+// é¡¯ç¤ºæ•¸æ“š
 function display() {    
               
     if(set1 ==1)
@@ -156,7 +156,7 @@ function display() {
      set5 = "ON";
     else 
      set5 = "OFF";    	          
-    e('drag6').innerHTML = "¨t²Î¸ê°T:<br>" + "1.³]©w1:" + set1+ "<br>" + "2.³]©w2:" +set4+ "<br>" + "3.³]©w3:" +set2 + "¤À"+ "<br>" + "4.³]©w4:" + set3+"¤À" +  "<br>" + "5.³]©w5:" + set5+ "<br>" +"6.³]©w6:" +set6 +"«×" + "<br>7.³]©w7:" + set7 +"«×";   
+    e('drag6').innerHTML = "ç³»çµ±è³‡è¨Š:<br>" + "1.è¨­å®š1:" + set1+ "<br>" + "2.è¨­å®š2:" +set4+ "<br>" + "3.è¨­å®š3:" +set2 + "åˆ†"+ "<br>" + "4.è¨­å®š4:" + set3+"åˆ†" +  "<br>" + "5.è¨­å®š5:" + set5+ "<br>" +"6.è¨­å®š6:" +set6 +"åº¦" + "<br>7.è¨­å®š7:" + set7 +"åº¦";   
     e('drag1').innerHTML = time;     
     tempcol(temp,"drag2");    
     tempcol(temp2,"drag3");        
@@ -182,7 +182,7 @@ function webservice_data(){
 }
 
 //Char
-function CharJs2() //´ú¸Õ¤¤¡A¹w­p¥[¤JÅªMySql¸ê®Æ®w®M¹Ïªí
+function CharJs2() //æ¸¬è©¦ä¸­ï¼Œé è¨ˆåŠ å…¥è®€MySqlè³‡æ–™åº«å¥—åœ–è¡¨
 {
    var xValues = labels;
    new Chart("myChart", {
@@ -200,11 +200,11 @@ function CharJs2() //´ú¸Õ¤¤¡A¹w­p¥[¤JÅªMySql¸ê®Æ®w®M¹Ïªí
      }
    });
   
-   //reChart = setTimeout('CharJs()', 10000);  //10¬í­«·s¾ã²z
+   //reChart = setTimeout('CharJs()', 10000);  //10ç§’é‡æ–°æ•´ç†
 	
 	}
 
-function CharJs() //´ú¸Õ¤¤¡A¹w­p¥[¤JÅªMySql¸ê®Æ®w®M¹Ïªí
+function CharJs() //æ¸¬è©¦ä¸­ï¼Œé è¨ˆåŠ å…¥è®€MySqlè³‡æ–™åº«å¥—åœ–è¡¨
 {
 	
    var xValues = [100,200,300,400,500,600,700,800,900,1000];
@@ -232,28 +232,28 @@ function CharJs() //´ú¸Õ¤¤¡A¹w­p¥[¤JÅªMySql¸ê®Æ®w®M¹Ïªí
      }
    });
   
-   reChart = setTimeout('CharJs()', 10000);  //10¬í­«·s¾ã²z
+   reChart = setTimeout('CharJs()', 10000);  //10ç§’é‡æ–°æ•´ç†
 	
 	}
 
-//·Å«×ÅÜ¦âfunction ÂÅ¦â:·Å«× < 35 ¾ï¦â:·Å«× >= 35 ¬õ¦â:·Å«× > 60
+//æº«åº¦è®Šè‰²function è—è‰²:æº«åº¦ < 35 æ©˜è‰²:æº«åº¦ >= 35 ç´…è‰²:æº«åº¦ > 60
 function tempcol(temp,drag){
 	  if (drag == "drag2" || drag == "drag3")
     {
       if (temp > 34 && temp < 60) 
       {  
    	    e(drag).style.backgroundColor ='orange';
-        e(drag).innerHTML = temp + "&nbsp<span style = 'font-size:50px;'>¢Xc</span>";   	    	    
+        e(drag).innerHTML = temp + "&nbsp<span style = 'font-size:50px;'>Â°c</span>";   	    	    
       }
       else if(temp > 59)
    	  {
    	    e(drag).style.backgroundColor ="#F45E2C";	       
-        e(drag).innerHTML = temp + "&nbsp<span style = 'font-size:50px;'>¢Xc</span>";   	    	       	    
+        e(drag).innerHTML = temp + "&nbsp<span style = 'font-size:50px;'>Â°c</span>";   	    	       	    
       }    
       else
    	  {
    	    e(drag).style.backgroundColor ="#2ab0ed";	
-        e(drag).innerHTML = temp + "&nbsp<span style = 'font-size:50px;'>¢Xc</span>";   	    	       	    
+        e(drag).innerHTML = temp + "&nbsp<span style = 'font-size:50px;'>Â°c</span>";   	    	       	    
       }	
       
       if(temp == 99)
@@ -265,7 +265,7 @@ function tempcol(temp,drag){
     }	  
 	  else
 	  {
-   	  var cont = temp + "&nbsp<span style = 'font-size:50px;'>¢Xc</span>";	
+   	  var cont = temp + "&nbsp<span style = 'font-size:50px;'>Â°c</span>";	
       if (temp > 34 && temp < 60) 
       {  
    	    e(drag).className ="diabox";	    
@@ -291,7 +291,7 @@ function tempcol(temp,drag){
 	}
 	
  
-//div©ì©Ôfunction
+//divæ‹–æ‹‰function
 $(function () {
 
   $("#dragbasic div[id^='drag']").draggable({
@@ -306,7 +306,7 @@ $(function () {
           });
   });
 });                
-//¶}©l¶s
+//é–‹å§‹éˆ•
 function sclick() {
   setpath();
 	e("s").disabled=true;
@@ -316,10 +316,10 @@ function sclick() {
 
 	stat = 1;
   e('tt0').innerHTML = '' + '<br>';          
-  e('tt1').innerHTML = '¹B¦æ¤¤..' + '<br>'; 
+  e('tt1').innerHTML = 'é‹è¡Œä¸­..' + '<br>'; 
   rejson();
 	}     
-//°±¤î¶s	                   
+//åœæ­¢éˆ•	                   
 function oclick() {
 	e("o").disabled=true;
 	e("s").disabled=false;
@@ -327,7 +327,7 @@ function oclick() {
 	e("ip2").disabled=false;	
   stat = 0;	
   e('tt0').innerHTML = '' + '<br>';          
-  e('tt1').innerHTML = '<font color =red>¤w°±¤î</font>' + '<br>';      
+  e('tt1').innerHTML = '<font color =red>å·²åœæ­¢</font>' + '<br>';      
   e('drag1').innerHTML = '';     
   e('drag2').innerHTML = '';
   e('drag3').innerHTML = '';  
@@ -338,7 +338,7 @@ function oclick() {
 	                     
 </script>
 
-<!-- §ï¹ï¸Ü®Ø­·®æ, diabox0¡÷ÂÅ,diabox¡÷¾ï,diabox1¡÷¬õ -->
+<!-- æ”¹å°è©±æ¡†é¢¨æ ¼, diabox0â†’è—,diaboxâ†’æ©˜,diabox1â†’ç´… -->
 <style type="text/css">
 .diabox .arrint{
 	width:0px;
@@ -458,18 +458,18 @@ function oclick() {
 <body bgcolor='#FFECAA' onload="init();">
 <table border=5 style="border-collapse:collapse;border-style:outset;">	
 <tr><td bgcolor="blue" align="center">	
-<font color = "white">·Å±±¦h´CÅéÀÉ</font>
+<font color = "white">æº«æ§å¤šåª’é«”æª”</font>
 </tr></td>
 <tr><td>
-1.ºô¸ô¦ì§}: 
-<input type="text" style="width:400px;" id="ip1" value="http://125.229.85.125"><!--§ï¹w³]ip¸ô¦ì§}-->
+1.ç¶²è·¯ä½å€: 
+<input type="text" style="width:400px;" id="ip1" value="http://125.229.85.125"><!--æ”¹é è¨­ipè·¯ä½å€-->
 <br>
-2.¹ÏÀÉ¦ì§}: 
-<input type="text" style="width:400px;" id="ip2" value="https://farm6.staticflickr.com/5780/21048893849_e7d88f738d_b1.jpg"><!--§ï¹w³]¹ÏÀÉ¦ì§}-->
+2.åœ–æª”ä½å€: 
+<input type="text" style="width:400px;" id="ip2" value="https://farm6.staticflickr.com/5780/21048893849_e7d88f738d_b1.jpg"><!--æ”¹é è¨­åœ–æª”ä½å€-->
 </tr></td>
 <tr><td>	
-<input type="button" id="s" value="¶}©l" onclick="sclick();">	
-&nbsp&nbsp&nbsp<input type="button" id="o" value="°±¤î" onclick="oclick();" disabled=true>	
+<input type="button" id="s" value="é–‹å§‹" onclick="sclick();">	
+&nbsp&nbsp&nbsp<input type="button" id="o" value="åœæ­¢" onclick="oclick();" disabled=true>	
 </tr></td>
 <tr><td>	
 <div id="tt0" style="visibility:hidden"></div>	
@@ -480,14 +480,14 @@ function oclick() {
 <input type="hidden" id="w2" value=1>
 
 <div id="dragbasic">    
-        <div id="drag6" class="box2" style="background-color:orange;left:0px;top:0px;">¨t²Î¸ê°T</div>                      	
-        <div id="drag1" class="drag" style="background-color:orange;position:relative;left:0px;top:0px;">®É¶¡</div> <!--left:0px;top:0px;¥i§ï°_©l¦ì¸m--> 
-        <div id="drag2" class="box" style="border-color:#FFFFFF;background-color:orange;left:0px;top:0px;">·Å«×1</div>        
-        <div id="drag3" class="box" style="border-color:#FF0000;background-color:orange;left:0px;top:0px;">·Å«×2</div>
-        <div id="drag4" class="diabox" style="border-color:0011FF;position:relative;left:0px;top:0px;">·Å«×3 
+        <div id="drag6" class="box2" style="background-color:orange;left:0px;top:0px;">ç³»çµ±è³‡è¨Š</div>                      	
+        <div id="drag1" class="drag" style="background-color:orange;position:relative;left:0px;top:0px;">æ™‚é–“</div> <!--left:0px;top:0px;å¯æ”¹èµ·å§‹ä½ç½®--> 
+        <div id="drag2" class="box" style="border-color:#FFFFFF;background-color:orange;left:0px;top:0px;">æº«åº¦1</div>        
+        <div id="drag3" class="box" style="border-color:#FF0000;background-color:orange;left:0px;top:0px;">æº«åº¦2</div>
+        <div id="drag4" class="diabox" style="border-color:0011FF;position:relative;left:0px;top:0px;">æº«åº¦3 
       	<span class="arrint"></span><span class="arrout"></span> 		
         </div>                
-        <div id="drag5" class="diabox" style="border-color:#FF00F6;position:relative;left:0px;top:0px;">·Å«×4 
+        <div id="drag5" class="diabox" style="border-color:#FF00F6;position:relative;left:0px;top:0px;">æº«åº¦4 
       	<span class="arrint"></span><span class="arrout"></span> 		
         </div>         
         <div id="drag7" class="box2" style="background-color:orange;left:0px;top:0px;width:500px;hight:100px;">
