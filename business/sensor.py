@@ -10,7 +10,7 @@ class Sensor(object):
         label_results = []
         db = database()
         sql = """SELECT data_time,sen1 FROM (
-                    select data_time,sen1 from demo ORDER BY data_date,data_time DESC LIMIT 10
+                    select data_time,sen1 from demo ORDER BY data_date DESC,data_time DESC LIMIT 10
                   ) A ORDER BY data_time"""
         print(sql)
         cursor = db.execute_select_sql(sql)
