@@ -1,6 +1,7 @@
 import requests
 import time
-
+import sys
+sys.path.append("..")
 from bases.database import database
 from bases.settings import SLEEP_TIME, CREATE_TABLE_SQL
 
