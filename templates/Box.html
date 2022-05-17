@@ -68,18 +68,22 @@
 </script>
 <style type="text/css">
     #sen_type {
-        width:150px;
-        font-size: 1.2em;
+        width:500px;
+        font-size: 3em;
     }
 
     #from_date {
-        width:150px;
-        font-size: 1em;
+        width:250px;
+        font-size: 3em;
     }
 
     #to_date {
-        width:150px;
-        font-size: 1em;
+        width:250px;
+        font-size: 3em;
+    }
+
+    #chart_update {
+        font-size: 3em;
     }
 
     #search {
@@ -92,17 +96,21 @@
 <body bgcolor='#FFECAA' onload="init();">
 
 <div id="search">
-    <select name="sen_type" id="sen_type">
-        <option value="sen1">sen1</option>
-        <option value="sen2">sen2</option>
-        <option value="sen3">sen3</option>
-        <option value="sen4">sen4</option>
-        <option value="sen5">sen5</option>
-        <option value="sen6">sen6</option>
-    </select>
-    <input type="text" id="from_date">
-    <input type="text" id="to_date">
-    <button type="button" id="chart_update" onclick="chart_update()">UPDATE</button>
+    <div style="padding-bottom: 20px">
+        <select name="sen_type" id="sen_type">
+            <option value="sen1">sen1</option>
+            <option value="sen2">sen2</option>
+            <option value="sen3">sen3</option>
+            <option value="sen4">sen4</option>
+            <option value="sen5">sen5</option>
+            <option value="sen6">sen6</option>
+        </select>
+    </div>
+    <div style="">
+        <input type="text" id="from_date">
+        <input type="text" id="to_date">
+        <button type="button" id="chart_update" onclick="chart_update()">UPDATE</button>
+    </div>
 </div>
 <canvas id="myChart" style="width:100%;max-width:900px"></canvas>
 </body>
