@@ -8,7 +8,7 @@ app.register_blueprint(sensor_bp, url_prefix='/sen_data')
 
 @app.route('/')
 def hello_world():
-    return render_template('UKSmedia_v2.html')
+    return render_template('Box.html')
 
 
 if __name__ == '__main__':

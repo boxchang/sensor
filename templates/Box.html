@@ -1,0 +1,109 @@
+<html>
+<head>
+<title>溫控多媒體檔</title>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+
+ <!--Jquery 若不想拖拉功能, 這邊可全刪-->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script type="text/javascript" src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="jquery-ui.js"></script>
+ <!--*********************End Jquery*********************-->
+ <!-- Chart.js v2.4.0 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<script>
+    // 開啟時執行
+    function init(){
+        var myDate = new Date();
+        var date = myDate.getFullYear() + '/' + ('0'+ (myDate.getMonth()+1)).slice(-2) + '/' + ('0'+ myDate.getDate()).slice(-2);
+        $( "#from_date" ).datepicker({ dateFormat: 'yy/mm/dd' }).val(date);
+        $( "#to_date" ).datepicker({ dateFormat: 'yy/mm/dd' }).val(date);
+        webservice_data();
+    }
+
+    var labels;
+    var values;
+    function webservice_data(){
+        $.post("http://boxchang.synology.me:8888/sen_data/sample",
+          {
+              sen_type:$("#sen_type").val(),
+              from_date : $("#from_date").val(),
+              to_date : $("#to_date").val()
+          },
+          function(data, status){
+            data = eval('(' + data + ')');
+            labels = data["LABELS"];
+            values = data["VALUES"];
+            CharJs2();
+          });
+    }
+
+    //Char
+    function CharJs2() //測試中，預計加入讀MySql資料庫套圖表
+    {
+       var xValues = labels;
+       new Chart("myChart", {
+         type: "line",
+         data: {
+           labels: xValues,
+           datasets: [{
+             data: values,
+             borderColor: "red",
+             fill: false
+           }]
+         },
+         options: {
+           legend: {display: false}
+         }
+       });
+
+    }
+
+    function chart_update() {
+        webservice_data();
+    }
+</script>
+<style type="text/css">
+    #sen_type {
+        width:150px;
+        font-size: 1.2em;
+    }
+
+    #from_date {
+        width:150px;
+        font-size: 1em;
+    }
+
+    #to_date {
+        width:150px;
+        font-size: 1em;
+    }
+
+    #search {
+        padding: 50px;
+    }
+</style>
+
+</head>
+
+<body bgcolor='#FFECAA' onload="init();">
+
+<div id="search">
+    <select name="sen_type" id="sen_type">
+        <option value="sen1">sen1</option>
+        <option value="sen2">sen2</option>
+        <option value="sen3">sen3</option>
+        <option value="sen4">sen4</option>
+        <option value="sen5">sen5</option>
+        <option value="sen6">sen6</option>
+    </select>
+    <input type="text" id="from_date">
+    <input type="text" id="to_date">
+    <button type="button" id="chart_update" onclick="chart_update()">UPDATE</button>
+</div>
+<canvas id="myChart" style="width:100%;max-width:900px"></canvas>
+</body>
+</html>
