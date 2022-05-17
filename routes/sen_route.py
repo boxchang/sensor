@@ -12,10 +12,11 @@ def sample():
     ajax_data = ""
     if request.method == "POST":
         data = request.form
-        data_type = data.get('type')
+        sen_type = data.get('sen_type')
+        from_date = data.get('from_date')
+        to_date = data.get('to_date')
         sensor = Sensor()
-        if data_type == "sen1":
-            ajax_data = sensor.getSen1_ChartData()
-        elif data_type == "sen2":
-            ajax_data = sensor.getSen2_ChartData()
+        if sen_type is not None and sen_type != "":
+            ajax_data = sensor.getSen_ChartData(sen_type, from_date, to_date)
+
     return ajax_data
