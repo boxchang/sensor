@@ -4,23 +4,41 @@
 <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
 
  <!--Jquery 若不想拖拉功能, 這邊可全刪-->
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
-<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-<script type="text/javascript" src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="jquery-ui.js"></script>
+<!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />-->
+<!--<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>-->
+<!--<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>-->
+<!--<script type="text/javascript" src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>-->
+
  <!--*********************End Jquery*********************-->
  <!-- Chart.js v2.4.0 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://amsul.ca/pickadate.js/css/main.css">
+    <link rel="stylesheet" href="https://amsul.ca/pickadate.js/vendor/pickadate/lib/themes/default.css">
+    <link rel="stylesheet" href="https://amsul.ca/pickadate.js/vendor/pickadate/lib/themes/default.date.css">
+    <link rel="stylesheet" href="https://amsul.ca/pickadate.js/vendor/pickadate/lib/themes/default.time.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://amsul.ca/pickadate.js/vendor/pickadate/lib/picker.js"></script>
+<script src="https://amsul.ca/pickadate.js/vendor/pickadate/lib/picker.date.js"></script>
+<script src="https://amsul.ca/pickadate.js/vendor/pickadate/lib/picker.time.js"></script>
+<script src="https://amsul.ca/pickadate.js/vendor/pickadate/lib/legacy.js"></script>
+<script src="https://amsul.ca/pickadate.js/js/main.js"></script>
+<script src="https://amsul.ca/pickadate.js/js/rainbow.js"></script>
 
 <script>
     // 開啟時執行
     function init(){
         var myDate = new Date();
         var date = myDate.getFullYear() + '/' + ('0'+ (myDate.getMonth()+1)).slice(-2) + '/' + ('0'+ myDate.getDate()).slice(-2);
-        $( "#from_date" ).datepicker({ dateFormat: 'yy/mm/dd' }).val(date);
-        $( "#to_date" ).datepicker({ dateFormat: 'yy/mm/dd' }).val(date);
+        $( "#from_date" ).val(date);
+        $( "#to_date" ).val(date);
+        $('.datepicker').pickadate({
+          format: 'yyyy/mm/dd'
+        });
         webservice_data();
     }
 
@@ -68,22 +86,21 @@
 </script>
 <style type="text/css">
     #sen_type {
-        width:500px;
-        font-size: 2em;
+        width:100%;
+        font-size: 1em;
     }
 
     #from_date {
-        width:250px;
-        font-size: 2em;
+        font-size: 1em;
     }
 
     #to_date {
-        width:250px;
-        font-size: 2em;
+        font-size: 1em;
     }
 
     #chart_update {
-        font-size: 2em;
+        width: 100%;
+        font-size: 1em;
     }
 
     #search {
@@ -107,8 +124,8 @@
         </select>
     </div>
     <div style="">
-        <input type="text" id="from_date">
-        <input type="text" id="to_date">
+        <input type="text" id="from_date" class="form-control datepicker">
+        <input type="text" id="to_date" class="form-control datepicker">
         <button type="button" id="chart_update" onclick="chart_update()">UPDATE</button>
     </div>
 </div>
