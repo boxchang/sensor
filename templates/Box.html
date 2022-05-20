@@ -13,27 +13,44 @@
  <!-- Chart.js v2.4.0 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<link rel="stylesheet" href="https://amsul.ca/pickadate.js/vendor/pickadate/lib/themes/default.css">
-<link rel="stylesheet" href="https://amsul.ca/pickadate.js/vendor/pickadate/lib/themes/default.date.css">
-<link rel="stylesheet" href="https://amsul.ca/pickadate.js/vendor/pickadate/lib/themes/default.time.css">
-<script src="https://amsul.ca/pickadate.js/vendor/pickadate/lib/picker.js"></script>
-<script src="https://amsul.ca/pickadate.js/vendor/pickadate/lib/picker.date.js"></script>
-<script src="https://amsul.ca/pickadate.js/vendor/pickadate/lib/picker.time.js"></script>
-<script src="https://amsul.ca/pickadate.js/vendor/pickadate/lib/legacy.js"></script>
-<script src="https://amsul.ca/pickadate.js/js/main.js"></script>
-<script src="https://amsul.ca/pickadate.js/js/rainbow.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/bootstrap-material-design.min.css"/>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/ripples.min.css"/>
+
+<link rel="stylesheet" href="./css/bootstrap-material-datetimepicker.css" />
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/ripples.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/material.min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
+<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="./js/bootstrap-material-datetimepicker.js"></script>
 
 <script>
     // 開啟時執行
     function init(){
         var myDate = new Date();
         var date = myDate.getFullYear() + '/' + ('0'+ (myDate.getMonth()+1)).slice(-2) + '/' + ('0'+ myDate.getDate()).slice(-2);
-        $( "#from_date" ).val(date);
-        $( "#to_date" ).val(date);
-        $('.datepicker').pickadate({
-          format: 'yyyy/mm/dd'
+
+        $("#from_date").bootstrapMaterialDatePicker({
+            format: 'yyyy/mm/DD',
+            currentDate: date,
+            weekStart : 0, time: false
         });
+        $("#to_date").bootstrapMaterialDatePicker({
+            format: 'yyyy/mm/DD',
+            currentDate: date,
+            weekStart : 0, time: false
+        });
+
+
+        $.material.init()
         webservice_data();
     }
 
@@ -120,8 +137,8 @@
         </select>
     </div>
     <div style="">
-        <input type="text" id="from_date" class="form-control datepicker">
-        <input type="text" id="to_date" class="form-control datepicker">
+        <input type="text" id="from_date" class="form-control floating-label" placeholder="Start Date">
+        <input type="text" id="to_date" class="form-control floating-label" placeholder="End Date">
         <button type="button" id="chart_update" onclick="chart_update()">UPDATE</button>
     </div>
 </div>
