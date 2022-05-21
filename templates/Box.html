@@ -141,9 +141,10 @@
         });
     }
 
-    function chart_update(sen) {
-        webservice_data(sen);
-        get_current_value(sen)
+    var sen;
+    function chart_update() {
+        webservice_data(this.sen);
+        get_current_value(this.sen);
         interval = setInterval("get_current_value(sen)", 5000);
     }
 
@@ -153,7 +154,8 @@
     }
 
     function temp1(value) {
-        chart_update(value);
+        this.sen = value;
+        chart_update();
     }
 </script>
 <style type="text/css">
