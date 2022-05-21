@@ -65,7 +65,7 @@
     var labels;
     var values;
     function webservice_data(sen){
-        alert(sen);
+        alert($("#from_date").val());
         $.post("http://boxchang.synology.me:8888/sen_data/sample",
           {
               sen_type:sen,
