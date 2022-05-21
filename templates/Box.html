@@ -94,7 +94,16 @@
            }]
          },
          options: {
-           legend: {display: false}
+             legend: {display: false},
+             scales: {
+                xAxes: [{
+                        ticks: {
+                            autoSkip: false,
+                            maxRotation: 90,
+                            minRotation: 90
+                        }
+                    }]
+        }
          }
        });
 
