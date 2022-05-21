@@ -65,7 +65,6 @@
     var labels;
     var values;
     function webservice_data(sen){
-        alert($("#from_date").val());
         $.post("http://boxchang.synology.me:8888/sen_data/sample",
           {
               sen_type:sen,
@@ -73,7 +72,6 @@
               to_date : $("#to_date").val()
           },
           function(data, status){
-            alert(data);
             data = eval('(' + data + ')');
             labels = data["LABELS"];
             values = data["VALUES"];
@@ -149,7 +147,6 @@
     }
 
     function display(tag, data, sen) {
-        alert("display:"+sen);
         $(tag).html(eval("data."+sen)+"°");
     }
 
