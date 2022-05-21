@@ -141,6 +141,7 @@
     }
 
     function chart_update() {
+        alert(sen);
         webservice_data();
         get_current_value(sen)
         interval = setInterval("get_current_value(sen)", 5000);
