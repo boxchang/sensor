@@ -154,7 +154,7 @@ body {
 	font-size: 2.5em;
 	font-weight: bold;
 	text-align: right;
-	width: 3ch;
+	width: 5ch;
 }
 .temp__digit {
 	display: inline-block;
