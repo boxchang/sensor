@@ -73,7 +73,7 @@
               to_date : $("#to_date").val()
           },
           function(data, status){
-            alert(data["VALUES"]);
+            alert(data);
             data = eval('(' + data + ')');
             labels = data["LABELS"];
             values = data["VALUES"];
