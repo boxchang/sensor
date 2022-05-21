@@ -64,8 +64,7 @@
 
     var labels;
     var values;
-    var sen = ""; //default value
-    function webservice_data(){
+    function webservice_data(sen){
         $.post("http://boxchang.synology.me:8888/sen_data/sample",
           {
               sen_type:sen,
@@ -141,8 +140,7 @@
         });
     }
 
-    function chart_update() {
-        alert(sen);
+    function chart_update(sen) {
         webservice_data();
         get_current_value(sen)
         interval = setInterval("get_current_value(sen)", 5000);
@@ -153,8 +151,7 @@
     }
 
     function temp1(value) {
-        sen = value;
-        chart_update();
+        chart_update(value);
     }
 </script>
 <style type="text/css">
