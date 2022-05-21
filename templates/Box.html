@@ -41,7 +41,8 @@
 <script>
     // 開啟時執行
     function init(){
-        $("#button_sen2").click();
+        //$("#button_sen2").click();
+
         var myDate = new Date();
         var date = myDate.getFullYear() + '/' + ('0'+ (myDate.getMonth()+1)).slice(-2) + '/' + ('0'+ myDate.getDate()).slice(-2);
 
@@ -58,7 +59,8 @@
 
 
         $.material.init()
-        webservice_data();
+        //webservice_data();
+        interval = setInterval("chart_update()", 5000);
     }
 
     var labels;
@@ -142,7 +144,6 @@
     function chart_update() {
         webservice_data();
         get_current_value(sen)
-        interval = setInterval("get_current_value(sen)", 5000);
     }
 
     function display(tag, data, sen) {
@@ -161,11 +162,11 @@
     }
 
     #from_date {
-        font-size: 2em;
+        font-size: 1.5em;
     }
 
     #to_date {
-        font-size: 2em;
+        font-size: 1.5em;
     }
 
     #search-button {
