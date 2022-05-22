@@ -154,6 +154,11 @@
         this.sen = value;
         chart_update();
     }
+
+    window.addEventListener("orientationchange", function() {
+    // Announce the new orientation number
+    alert(window.orientation);
+    }, false);
 </script>
 <style type="text/css">
     #sen_type {
