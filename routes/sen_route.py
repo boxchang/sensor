@@ -33,9 +33,7 @@ def save_data():
         sen_data = data.get('data')
         try:
             if len(sen_data) > 0:
-                print(sen_data)
                 data = json.loads(sen_data)
-                print(data)
                 localtime = time.localtime()
                 data_date = time.strftime("%Y%m%d", localtime)
                 sen_data = SEN_DATA(data_date, data["time"],
